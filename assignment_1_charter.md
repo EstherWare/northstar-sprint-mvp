@@ -2,7 +2,7 @@ Assignment 1: Team Working Agreement & Board Setup
 
 Part 1: Team Charter
 
-Team Name: The Fixers Pod
+Team Name: Group 16 The Fixers Pod
 
 Team Lead: Esther
 
@@ -26,6 +26,5 @@ By typing our names below, we agree to abide by the rules of this Team Charter:
 - [x] Esther (Team Lead)
 - [x] Jack Gerson
 - [X] Sarah Omiya
-- [ ] Njeri mercy
 - [x] Mark ndegwa
    
