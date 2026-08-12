@@ -24,7 +24,7 @@ Escalation Path: If any team member has 0 visible activity (commits, messages, o
 By typing our names below, we agree to abide by the rules of this Team Charter:
 
 - [x] Esther (Team Lead)
-- [ ] Jack Gerson
+- [x] Jack Gerson
 - [X] Sarah Omiya
 - [ ] Njeri mercy
 - [x] Mark ndegwa
