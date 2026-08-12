@@ -27,5 +27,5 @@ By typing our names below, we agree to abide by the rules of this Team Charter:
 - [ ] Jack Gerson
 - [ ] Sarah Omiya
 - [ ] Njeri mercy
-- [ ] Mark ndegwa
+- [x] Mark ndegwa
    
