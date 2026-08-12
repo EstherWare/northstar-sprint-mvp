@@ -19,3 +19,13 @@ Code Freezes: All code for the MVP must be merged by Day 4 at 12:00 PM to allow 
 Technical Disagreements: We will vote. In the event of a tie, Esther (Team Lead) has the final say.
 The Anti-Black-Box Rule: No task can be larger than 4 hours. If it is, the assignee must break it down.
 Escalation Path: If any team member has 0 visible activity (commits, messages, or board moves) for 1.5 days, Esther will reach out directly via phone. If unresolved by Day 2, the team will reassign their tasks and note it in the audit log.
+
+5. Signatures
+By typing our names below, we agree to abide by the rules of this Team Charter:
+
+- [x] Esther (Team Lead)
+- [x] Jack Gerson
+- [x] Sarah Omiya
+- [x] Njeri mercy
+- [x] Mark ndegwa
+   
