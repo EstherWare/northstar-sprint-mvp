@@ -25,7 +25,7 @@ By typing our names below, we agree to abide by the rules of this Team Charter:
 
 - [x] Esther (Team Lead)
 - [ ] Jack Gerson
-- [ ] Sarah Omiya
+- [X] Sarah Omiya
 - [ ] Njeri mercy
 - [x] Mark ndegwa
    
