@@ -32,7 +32,25 @@
                 <div id="order-result" class="mt-6 hidden p-4 rounded-md"></div>
             </div>
 
-            <!-- SARAH WILL INSERT RETURNS SECTION HERE -->
+           <!-- Sarah's Returns Section -->
+            <div id="section-return" class="p-6 hidden">
+                <h2 class="text-xl font-semibold mb-4">Return an Item</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Order ID</label>
+                        <input type="text" id="return-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Reason</label>
+                        <select id="return-reason" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                            <option>Wrong size</option>
+                            <option>Item damaged</option>
+                        </select>
+                    </div>
+                    <button onclick="processReturn()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Generate Return Label</button>
+                </div>
+                <div id="return-result" class="mt-6 hidden p-4 rounded-md"></div>
+            </div>
 
         </div>
     </main>
