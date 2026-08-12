@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northstar Retail - Self-Serve Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tab-active { border-bottom: 2px solid #2563eb; color: #2563eb; }
+        .tab-inactive { border-bottom: 2px solid transparent; color: #6b7280; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans text-gray-800">
+
+    <!-- MERCY WILL INSERT HEADER HERE -->
+    
+    <main class="max-w-xl mx-auto mt-10 p-4">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            
+            <!-- MERCY WILL INSERT TABS HERE -->
+
+            <!-- Jacks Order Status Section -->
+            <div id="section-order" class="p-6 block">
+                <h2 class="text-xl font-semibold mb-4">Where is my order?</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Order ID</label>
+                        <input type="text" id="order-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                    <button onclick="checkOrder()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Check Status</button>
+                </div>
+                <div id="order-result" class="mt-6 hidden p-4 rounded-md"></div>
+            </div>
+
+            <!-- SARAH WILL INSERT RETURNS SECTION HERE -->
+
+        </div>
+    </main>
+
+    <script>
+        // MARK AND ESTHER WILL INSERT JAVASCRIPT HERE
+    </script>
+</body>
+</html>
