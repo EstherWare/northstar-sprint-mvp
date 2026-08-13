@@ -78,6 +78,101 @@
         function getMockRMA() {
             return 'RMA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
         }
-</script>
+        // Esther's UI Integration (Tasks 8, 9, 10)
+        function switchTab(selectedTab) {
+            const tabs = ['order', 'return'];
+            tabs.forEach(tab => {
+                const tabBtn = document.getElementById(`tab-${tab}`);
+                const section = document.getElementById(`section-${tab}`);
+                const resultDiv = document.getElementById(`${tab}-result`);
+                
+                if (tab === selectedTab) {
+                    tabBtn.className = 'flex-1 py-4 text-center font-medium tab-active transition-colors hover:bg-gray-50';
+                    section.classList.remove('hidden'); section.classList.add('block');
+                } else {
+                    tabBtn.className = 'flex-1 py-4 text-center font-medium tab-inactive transition-colors hover:bg-gray-50';
+                    section.classList.remove('block'); section.classList.add('hidden');
+                }
+                if(resultDiv) resultDiv.classList.add('hidden');
+            });
+        }
+
+        function showResult(el, msg, colors) {
+            el.innerHTML = msg;
+            el.className = `mt-6 p-4 rounded-md ${colors}`;
+            el.classList.remove('hidden');
+        }
+
+        function checkOrder() {
+            const id = document.getElementById('order-id').value.trim();
+            const res = document.getElementById('order-result');
+            if(!id) return showResult(res, 'Please enter an Order ID.', 'bg-red-100 text-red-700');
+
+            setTimeout(() => {
+                const data = getMockOrderStatus(id);
+                showResult(res, data.status, data.color);
+            }, 400); 
+        }
+
+        function processReturn() {
+            const id = document.getElementById('return-id').value.trim();
+            const res = document.getElementById('return-result');
+            if(!id) return showResult(res, 'Please enter an Order ID.', 'bg-red-100 text-red-700');
+
+            setTimeout(() => {
+                const rma = getMockRMA();
+                showResult(res, `Return approved. Your code is: <strong>${rma}</strong>`, 'bg-green-100 text-green-800');
+            }, 400);
+        }
+               
+       
+       // Esther's UI Integration (Tasks 8, 9, 10)
+        function switchTab(selectedTab) {
+            const tabs = ['order', 'return'];
+            tabs.forEach(tab => {
+                const tabBtn = document.getElementById(`tab-${tab}`);
+                const section = document.getElementById(`section-${tab}`);
+                const resultDiv = document.getElementById(`${tab}-result`);
+                
+                if (tab === selectedTab) {
+                    tabBtn.className = 'flex-1 py-4 text-center font-medium tab-active transition-colors hover:bg-gray-50';
+                    section.classList.remove('hidden'); section.classList.add('block');
+                } else {
+                    tabBtn.className = 'flex-1 py-4 text-center font-medium tab-inactive transition-colors hover:bg-gray-50';
+                    section.classList.remove('block'); section.classList.add('hidden');
+                }
+                if(resultDiv) resultDiv.classList.add('hidden');
+            });
+        }
+
+        function showResult(el, msg, colors) {
+            el.innerHTML = msg;
+            el.className = `mt-6 p-4 rounded-md ${colors}`;
+            el.classList.remove('hidden');
+        }
+
+        function checkOrder() {
+            const id = document.getElementById('order-id').value.trim();
+            const res = document.getElementById('order-result');
+            if(!id) return showResult(res, 'Please enter an Order ID.', 'bg-red-100 text-red-700');
+
+            setTimeout(() => {
+                const data = getMockOrderStatus(id);
+                showResult(res, data.status, data.color);
+            }, 400); 
+        }
+
+        function processReturn() {
+            const id = document.getElementById('return-id').value.trim();
+            const res = document.getElementById('return-result');
+            if(!id) return showResult(res, 'Please enter an Order ID.', 'bg-red-100 text-red-700');
+
+            setTimeout(() => {
+                const rma = getMockRMA();
+                showResult(res, `Return approved. Your code is: <strong>${rma}</strong>`, 'bg-green-100 text-green-800');
+            }, 400);
+               }
+       </script>
+   
 </body>
 </html>
