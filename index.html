@@ -70,3 +70,16 @@
     </script>
 </body>
 </html>
+// Mark's Mock Database Logic
+        function getMockOrderStatus(id) {
+            if (id.startsWith('1') || id.startsWith('2')) {
+                return { status: `Order <strong>#${id}</strong> has shipped.`, color: 'bg-green-100 text-green-800' };
+            }
+            return { status: `Order <strong>#${id}</strong> is processing.`, color: 'bg-blue-100 text-blue-800' };
+        }
+
+        function getMockRMA() {
+            return 'RMA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        }
+feat: implement mock DB logic for order status - backend sim
+
