@@ -4,6 +4,8 @@ Part 1: Team Charter
 
 Team Name: Group 16 The Fixers Pod
 
+Members: Jack Gerson, Sarah Omiya, Mark ndegwa 
+
 Team Lead: Esther
 
 1. Communication Rules
