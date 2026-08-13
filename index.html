@@ -76,9 +76,11 @@
    
     <script>
        
-// Mark's Mock Database Logic
+    <script>
+        // Mark's Mock Database Logic
         function getMockOrderStatus(id) {
             if (id.startsWith('1') || id.startsWith('2')) {
+                // NOTE: Backticks restored below!
                 return { status: `Order <strong>#${id}</strong> has shipped.`, color: 'bg-green-100 text-green-800' };
             }
             return { status: `Order <strong>#${id}</strong> is processing.`, color: 'bg-blue-100 text-blue-800' };
@@ -87,10 +89,12 @@
         function getMockRMA() {
             return 'RMA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
         }
+
         // Esther's UI Integration (Tasks 8, 9, 10)
         function switchTab(selectedTab) {
             const tabs = ['order', 'return'];
             tabs.forEach(tab => {
+                // NOTE: Backticks restored below!
                 const tabBtn = document.getElementById(`tab-${tab}`);
                 const section = document.getElementById(`section-${tab}`);
                 const resultDiv = document.getElementById(`${tab}-result`);
@@ -108,6 +112,7 @@
 
         function showResult(el, msg, colors) {
             el.innerHTML = msg;
+            // NOTE: Backticks restored below!
             el.className = `mt-6 p-4 rounded-md ${colors}`;
             el.classList.remove('hidden');
         }
@@ -130,10 +135,12 @@
 
             setTimeout(() => {
                 const rma = getMockRMA();
+                // NOTE: Backticks restored below!
                 showResult(res, `Return approved. Your code is: <strong>${rma}</strong>`, 'bg-green-100 text-green-800');
             }, 400);
         }
-               }
+    </script>
+   
        </script>  
 </body>
 </html>
