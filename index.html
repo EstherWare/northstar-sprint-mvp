@@ -3,84 +3,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!-- JACK'S PART (Task 1: Setup & Tailwind) -->
+    <!-- JACK'S PART (Task 1: Setup & Tailwind) -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northstar Retail - Self-Serve Support</title>
+    <title>Northstar Support Deflection MVP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .tab-active { border-bottom: 2px solid #2563eb; color: #2563eb; }
         .tab-inactive { border-bottom: 2px solid transparent; color: #6b7280; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen font-sans text-gray-800">
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
 
-    <!-- ESTHER WILL INSERT HEADER HERE -->
-   <header class="bg-white shadow-sm">
-        <div class="max-w-3xl mx-auto px-4 py-6 text-center">
-            <h1 class="text-3xl font-bold text-blue-600">Northstar Retail</h1>
-            <p class="text-gray-500 mt-2">How can we help you today?</p>
+    <!-- ESTHER'S PART (Task 3: Header & Tabs) -->
+    <header class="bg-white shadow">
+        <div class="max-w-3xl mx-auto px-4 py-6">
+            <h1 class="text-2xl font-bold text-gray-900">Northstar Support Portal</h1>
+            <p class="text-sm text-gray-500 mt-1">Self-Serve Support Deflection MVP</p>
         </div>
-   </header>
-    
-    <main class="max-w-xl mx-auto mt-10 p-4">
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            
-            <!-- ESTHER WILL INSERT TABS HERE -->                  
-   <div class="flex border-b">
-                <button onclick="switchTab('order')" id="tab-order" class="flex-1 py-4 text-center font-medium tab-active transition-colors hover:bg-gray-50">Track Order</button>
-                <button onclick="switchTab('return')" id="tab-return" class="flex-1 py-4 text-center font-medium tab-inactive transition-colors hover:bg-gray-50">Start a Return</button>
-</div>
-           
-          <!-- Jacks Order Status Section -->
-            <div id="section-order" class="p-6 block">
-                <h2 class="text-xl font-semibold mb-4">Where is my order?</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Order ID</label>
-                        <input type="text" id="order-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                    </div>
-                    <button onclick="checkOrder()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Check Status</button>
-                </div>
-                <div id="order-result" class="mt-6 hidden p-4 rounded-md"></div>
+    </header>
+
+    <div class="max-w-3xl mx-auto w-full px-4 mt-6 flex-grow">
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="flex border-b border-gray-200 cursor-pointer">
+                <div id="tab-order" onclick="switchTab('order')" class="flex-1 py-4 text-center font-medium tab-active transition-colors hover:bg-gray-50">Track Order</div>
+                <div id="tab-return" onclick="switchTab('return')" class="flex-1 py-4 text-center font-medium tab-inactive transition-colors hover:bg-gray-50">Process Return</div>
             </div>
 
-         <!-- Sarah's Returns Section -->
-            <div id="section-return" class="p-6 hidden">
-                <h2 class="text-xl font-semibold mb-4">Return an Item</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Order ID</label>
-                        <input type="text" id="return-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+            <main>
+                
+                <!--  MARK'S FIRST CODE BLOCK (Task 4)  -->
+               
+                <div id="section-order" class="p-6 block">
+                    <h2 class="text-xl font-semibold mb-4">Where is my order?</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Order ID</label>
+                            <input type="text" id="order-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        </div>
+                        <button onclick="checkOrder()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Check Status</button>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Reason</label>
-                        <select id="return-reason" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                            <option>Wrong size</option>
-                            <option>Item damaged</option>
-                        </select>
-                    </div>
-                    <button onclick="processReturn()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Generate Return Label</button>
+                    <div id="order-result" class="mt-6 hidden p-4 rounded-md"></div>
                 </div>
-                <div id="return-result" class="mt-6 hidden p-4 rounded-md"></div>
-            </div>
+
+                <!-- SARAH'S PART (Task 5: Returns Form UI) -->
+                <div id="section-return" class="p-6 hidden">
+                    <h2 class="text-xl font-semibold mb-4">Return an Item</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Order ID</label>
+                            <input type="text" id="return-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Reason</label>
+                            <select id="return-reason" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                                <option>Wrong size</option>
+                                <option>Item damaged</option>
+                            </select>
+                        </div>
+                        <button onclick="processReturn()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Generate Return Label</button>
+                    </div>
+                    <div id="return-result" class="mt-6 hidden p-4 rounded-md"></div>
+                </div>
+            </main>
         </div>
-    </main>
-   
-   <!-- ESTHER'S PART (Task 3: Footer) -->
+    </div>
+
+    <!-- ESTHER'S PART (Task 3: Footer) -->
     <footer class="bg-gray-800 mt-12 py-6">
         <div class="max-w-3xl mx-auto px-4 text-center text-gray-400 text-sm">
             &copy; 2026 Northstar Retail Co. Support Deflection MVP
         </div>
     </footer>
-   
+
     <script>
-       
-    <script>
-        // Mark's Mock Database Logic
+        
+        // MARK'S SECOND CODE BLOCK (Tasks 6 & 7) 
         function getMockOrderStatus(id) {
             if (id.startsWith('1') || id.startsWith('2')) {
-                // NOTE: Backticks restored below!
                 return { status: `Order <strong>#${id}</strong> has shipped.`, color: 'bg-green-100 text-green-800' };
             }
             return { status: `Order <strong>#${id}</strong> is processing.`, color: 'bg-blue-100 text-blue-800' };
@@ -89,12 +89,12 @@
         function getMockRMA() {
             return 'RMA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
         }
+        
 
-        // Esther's UI Integration (Tasks 8, 9, 10)
+        // ESTHER'S PART (Tasks 8, 9, 10: UI Logic)
         function switchTab(selectedTab) {
             const tabs = ['order', 'return'];
             tabs.forEach(tab => {
-                // NOTE: Backticks restored below!
                 const tabBtn = document.getElementById(`tab-${tab}`);
                 const section = document.getElementById(`section-${tab}`);
                 const resultDiv = document.getElementById(`${tab}-result`);
@@ -112,7 +112,6 @@
 
         function showResult(el, msg, colors) {
             el.innerHTML = msg;
-            // NOTE: Backticks restored below!
             el.className = `mt-6 p-4 rounded-md ${colors}`;
             el.classList.remove('hidden');
         }
@@ -135,12 +134,10 @@
 
             setTimeout(() => {
                 const rma = getMockRMA();
-                // NOTE: Backticks restored below!
                 showResult(res, `Return approved. Your code is: <strong>${rma}</strong>`, 'bg-green-100 text-green-800');
             }, 400);
         }
     </script>
-   
-       </script>  
 </body>
-</html>
+                       </html>
+                       
