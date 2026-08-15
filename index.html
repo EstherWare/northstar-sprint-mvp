@@ -1,552 +1,331 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- =========================================================================
+      ESTHER'S CONTRIBUTION: Base Configuration, Head Metadata & Styling Setup
+      - Responsive viewport setup
+      - Tailwind CSS CDN integration & Inter font configuration
+      - Application title & brand styling
+    ========================================================================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northstar Retail - Customer Self-Service Portal</title>
-    <style>
-        /* =========================================================================
-           ESTHER: Base layout, colors, and responsive container setup
-        ========================================================================= */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    <title>Northstar Retail | Self-Service Support & Deflection Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        northstar: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
         }
-        body {
-            background-color: #f8fafc;
-            color: #1e293b;
-            line-height: 1.5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        header {
-            background-color: #0f172a;
-            color: white;
-            padding: 1.2rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        header .brand-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        header .logo-badge {
-            background-color: #0284c7;
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: white;
-        }
-        header .team-tag {
-            font-size: 0.75rem;
-            background: #1e293b;
-            padding: 4px 12px;
-            border-radius: 16px;
-            border: 1px solid #334155;
-            color: #cbd5e1;
-        }
-        .main-container {
-            max-width: 860px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            width: 100%;
-            flex-grow: 1;
-        }
-        /* ESTHER: Tab navigation styles */
-        .tab-bar {
-            display: flex;
-            border-bottom: 2px solid #e2e8f0;
-            margin-bottom: 1.5rem;
-            gap: 10px;
-            overflow-x: auto;
-        }
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 12px 18px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #64748b;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-        .tab-btn:hover {
-            color: #0284c7;
-        }
-        .tab-btn.active {
-            color: #0284c7;
-            border-bottom-color: #0284c7;
-        }
-        .tab-panel {
-            display: none;
-        }
-        .tab-panel.active {
-            display: block;
-        }
-        /* Shared Card styles */
-        .card {
-            background: #ffffff;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-            margin-bottom: 1.5rem;
-        }
-        .card h2 {
-            font-size: 1.25rem;
-            margin-bottom: 0.35rem;
-            color: #0f172a;
-        }
-        .card p.desc {
-            font-size: 0.875rem;
-            color: #64748b;
-            margin-bottom: 1.25rem;
-        }
-        /* Form styling */
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .form-row input {
-            flex: 1;
-            min-width: 220px;
-        }
-        label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            color: #475569;
-        }
-        input[type="text"], select {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            font-size: 0.9rem;
-            outline: none;
-            background-color: #fff;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        input[type="text"]:focus, select:focus {
-            border-color: #0284c7;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-        }
-        .btn-submit {
-            background-color: #0284c7;
-            color: white;
-            border: none;
-            padding: 10px 22px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .btn-submit:hover {
-            background-color: #0369a1;
-        }
-        .chips-container {
-            margin-top: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-        .chip {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            padding: 3px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: monospace;
-            font-weight: 600;
-            color: #0f172a;
-        }
-        .chip:hover {
-            background: #e2e8f0;
-            color: #0284c7;
-        }
-        /* =========================================================================
-           JACK: Order tracking status badge & progress bar styling
-        ========================================================================= */
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .badge-shipped { background: #e0f2fe; color: #0369a1; }
-        .badge-processing { background: #fef3c7; color: #92400e; }
-        .badge-delivered { background: #dcfce7; color: #166534; }
-        
-        .progress-bar-wrap {
-            margin: 1.5rem 0 1rem;
-            position: relative;
-        }
-        .progress-line-bg {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #e2e8f0;
-            z-index: 1;
-            transform: translateY(-50%);
-        }
-        .progress-line-fill {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            height: 4px;
-            background: #0284c7;
-            z-index: 1;
-            transform: translateY(-50%);
-            transition: width 0.3s ease;
-        }
-        .steps-flex {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            z-index: 2;
-        }
-        .step-circle {
-            background: white;
-            border: 3px solid #cbd5e1;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: #64748b;
-        }
-        .step-circle.active {
-            border-color: #0284c7;
-            background: #0284c7;
-            color: white;
-        }
-        .step-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #64748b;
-            margin-top: 6px;
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            background: #f8fafc;
-            padding: 14px;
-            border-radius: 8px;
-            margin: 1.25rem 0;
-            border: 1px solid #f1f5f9;
-        }
-        .info-grid div span {
-            display: block;
-            font-size: 0.75rem;
-            color: #64748b;
-            margin-bottom: 2px;
-        }
-        .info-grid div strong {
-            font-size: 0.875rem;
-            color: #1e293b;
-        }
-        .items-box {
-            border-top: 1px solid #f1f5f9;
-            padding-top: 0.75rem;
-        }
-        .items-box h4 {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 6px;
-        }
-        .item-line {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.875rem;
-            padding: 4px 0;
-        }
-        /* =========================================================================
-           SARAH: Return confirmation card & RMA UI styles
-        ========================================================================= */
-        .rma-confirmation {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .rma-box {
-            background: #ffffff;
-            border: 1px dashed #166534;
-            padding: 12px 16px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 1rem 0;
-        }
-        .radio-options {
-            display: flex;
-            gap: 16px;
-            margin-top: 6px;
-            flex-wrap: wrap;
-        }
-        .radio-label {
-            font-weight: normal;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.875rem;
-        }
-        /* =========================================================================
-           MARK: FAQ accordion card styles
-        ========================================================================= */
-        .faq-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            overflow: hidden;
-        }
-        .faq-question {
-            width: 100%;
-            padding: 14px 16px;
-            background: #f8fafc;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #1e293b;
-            text-align: left;
-        }
-        .faq-question:hover {
-            background: #f1f5f9;
-        }
-        .faq-answer {
-            display: none;
-            padding: 14px 16px;
-            font-size: 0.875rem;
-            color: #475569;
-            background: white;
-            border-top: 1px solid #e2e8f0;
-            line-height: 1.6;
-        }
-        .faq-card.open .faq-answer {
-            display: block;
-        }
-        .faq-card.open .faq-toggle-icon {
-            transform: rotate(45deg);
-        }
-        .faq-toggle-icon {
-            font-size: 1.1rem;
-            color: #94a3b8;
-            transition: transform 0.2s;
-        }
-        .error-banner {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #991b1b;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 1rem;
-            font-size: 0.875rem;
-        }
-        footer {
-            background: #0f172a;
-            color: #94a3b8;
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 0.8rem;
-            margin-top: auto;
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Header by Esther -->
-    <header>
-        <div class="brand-wrap">
-            <div class="logo-badge">★</div>
-            <div>
-                <h1 style="font-size: 1.15rem; font-weight: bold;">Northstar Retail Co.</h1>
-                <p style="font-size: 0.75rem; color: #7dd3fc;">Customer Self-Service Support Portal (MVP)</p>
+    <!-- =========================================================================
+      ESTHER'S CONTRIBUTION: Header, Navigation & Tab Architecture
+      - Global navigation bar with branding
+      - Deflection metric hero banner
+      - Tab switching controllers (Order Tracking vs. Returns & Refunds)
+    ========================================================================= -->
+    <header class="bg-northstar-900 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-northstar-600 p-2 rounded-lg text-white font-bold text-xl">★</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Northstar Retail Co.</h1>
+                    <p class="text-xs text-sky-200">Customer Self-Service & Support Portal (MVP)</p>
+                </div>
             </div>
-        </div>
-        <div class="team-tag">
-            Pod: Esther (Lead), Jack, Sarah, Mark
+            <div class="flex items-center space-x-2 text-xs bg-northstar-800 px-3 py-1.5 rounded-full border border-northstar-700">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-slate-200">Pod: <strong>The Fixers</strong> (Esther, Jack, Sarah, Mark)</span>
+            </div>
         </div>
     </header>
 
-    <div class="main-container">
-        <!-- Navigation Tabs by Esther -->
-        <nav class="tab-bar">
-            <button type="button" class="tab-btn active" data-tab="orders">📦 Order Status</button>
-            <button type="button" class="tab-btn" data-tab="returns">🔄 Returns & Refunds</button>
-            <button type="button" class="tab-btn" data-tab="faq">❓ Instant Policy Help</button>
-        </nav>
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6 flex-grow w-full">
+        
+        <!-- Quick Tab Navigation -->
+        <div class="flex border-b border-slate-200 mb-8">
+            <button id="tab-orders-btn" onclick="switchTab('orders')" class="py-3 px-6 text-sm font-semibold border-b-2 border-northstar-600 text-northstar-700 focus:outline-none transition-colors">
+                📦 Order Status Lookup
+            </button>
+            <button id="tab-returns-btn" onclick="switchTab('returns')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">
+                🔄 Returns & Refunds
+            </button>
+            <button id="tab-faq-btn" onclick="switchTab('faq')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">
+                ❓ Instant Policy Help (FAQs)
+            </button>
+        </div>
 
         <!-- =========================================================================
-           JACK: Tab 1 - Order Status Lookup & Real-time Progress Tracking
+          JACK'S CONTRIBUTION: Order Status & Real-Time Tracking UI Section
+          - Interactive Order ID input with sample test buttons
+          - Visual timeline status cards (Processing, Shipped, Delivered)
+          - Item detail tables and estimated delivery dates
         ========================================================================= -->
-        <section id="tab-orders" class="tab-panel active">
-            <div class="card">
-                <h2>Track Your Order</h2>
-                <p class="desc">Enter your Order ID below to get immediate shipment status without waiting for customer support.</p>
-                <form id="orderForm">
-                    <div class="form-row">
-                        <input type="text" id="orderInput" placeholder="e.g. ORD-1001 or ORD-2002" required autocomplete="off">
-                        <button type="submit" class="btn-submit" id="trackOrderBtn">Track Order</button>
+        <section id="section-orders" class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-2">Check Order Status</h2>
+                <p class="text-sm text-slate-600 mb-4">Track your shipment in real time without waiting for an email support agent.</p>
+                
+                <form id="order-search-form" onsubmit="handleOrderLookup(event)" class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="order-id-input" placeholder="e.g., ORD-1001 or ORD-2002" required
+                            class="flex-grow px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-northstar-600 focus:border-transparent outline-none text-sm uppercase">
+                        <button type="submit" class="bg-northstar-600 hover:bg-northstar-700 text-white font-medium px-6 py-2.5 rounded-lg text-sm transition-colors shadow-sm">
+                            Track Order
+                        </button>
                     </div>
                 </form>
-                
-                <div class="chips-container">
-                    <span>Try demo IDs:</span>
-                    <span class="chip" data-id="ORD-1001">ORD-1001 (In Transit)</span>
-                    <span class="chip" data-id="ORD-2002">ORD-2002 (Processing)</span>
-                    <span class="chip" data-id="ORD-3003">ORD-3003 (Delivered)</span>
-                </div>
 
-                <div id="orderErrorBox" class="error-banner" style="display: none;">
-                    Order not found. Please verify your Order ID (try one of the demo IDs above).
+                <!-- Quick Test Preset Pills -->
+                <div class="mt-3 flex items-center gap-2 flex-wrap text-xs text-slate-500">
+                    <span>Try demo IDs:</span>
+                    <button type="button" onclick="setAndCheckOrder('ORD-1001')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded border border-slate-300 font-mono text-slate-700">ORD-1001 (Shipped)</button>
+                    <button type="button" onclick="setAndCheckOrder('ORD-2002')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded border border-slate-300 font-mono text-slate-700">ORD-2002 (Processing)</button>
+                    <button type="button" onclick="setAndCheckOrder('ORD-3003')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded border border-slate-300 font-mono text-slate-700">ORD-3003 (Delivered)</button>
                 </div>
             </div>
 
-            <!-- Order Results Card -->
-            <div id="orderResultCard" class="card" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <!-- Order Results Output Card -->
+            <div id="order-result-card" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+                <div class="flex flex-wrap justify-between items-center pb-4 border-b border-slate-100 gap-2">
                     <div>
-                        <span style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Order Number</span>
-                        <h3 id="resOrderId" style="font-size: 1.15rem; color: #0f172a;"></h3>
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Order Summary</span>
+                        <h3 id="res-order-id" class="text-lg font-bold text-slate-900"></h3>
                     </div>
-                    <div id="resBadge"></div>
+                    <div id="res-status-badge"></div>
                 </div>
 
-                <!-- Progress Bar -->
-                <div class="progress-bar-wrap">
-                    <div class="progress-line-bg"></div>
-                    <div class="progress-line-fill" id="resProgressLine" style="width: 0%;"></div>
-                    <div class="steps-flex">
-                        <div class="step-circle" id="circle1">1</div>
-                        <div class="step-circle" id="circle2">2</div>
-                        <div class="step-circle" id="circle3">3</div>
+                <!-- Progress Step Indicator -->
+                <div class="py-2">
+                    <div class="grid grid-cols-3 text-center text-xs font-semibold text-slate-500 mb-2">
+                        <div id="step-1-label" class="text-northstar-600">1. Order Placed</div>
+                        <div id="step-2-label" class="text-slate-400">2. In Transit</div>
+                        <div id="step-3-label" class="text-slate-400">3. Delivered</div>
                     </div>
-                </div>
-                <div class="step-labels">
-                    <span>1. Placed</span>
-                    <span>2. In Transit</span>
-                    <span>3. Delivered</span>
-                </div>
-
-                <!-- Metadata Grid -->
-                <div class="info-grid">
-                    <div>
-                        <span>Estimated Delivery / Status</span>
-                        <strong id="resEta"></strong>
-                    </div>
-                    <div>
-                        <span>Courier / Tracking</span>
-                        <strong id="resCourier"></strong>
-                    </div>
-                    <div>
-                        <span>Shipping Address</span>
-                        <strong id="resAddress"></strong>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div id="order-progress-bar" class="bg-northstar-600 h-full w-1/3 transition-all duration-500"></div>
                     </div>
                 </div>
 
-                <!-- Order Items -->
-                <div class="items-box">
-                    <h4>Package Contents:</h4>
-                    <div id="resItemsList"></div>
+                <!-- Order Metadata Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg text-sm">
+                    <div>
+                        <span class="text-slate-500 block text-xs">Estimated Delivery:</span>
+                        <strong id="res-eta" class="text-slate-800"></strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block text-xs">Carrier & Tracking:</span>
+                        <strong id="res-tracking" class="text-slate-800"></strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block text-xs">Shipping Address:</span>
+                        <span id="res-address" class="text-slate-800 font-medium"></span>
+                    </div>
+                </div>
+
+                <!-- Item Breakdown -->
+                <div>
+                    <h4 class="text-xs uppercase font-bold text-slate-500 mb-2">Ordered Items</h4>
+                    <div id="res-items-list" class="space-y-2"></div>
                 </div>
             </div>
         </section>
 
         <!-- =========================================================================
-           SARAH: Tab 2 - Self-Service Returns & RMA Generation
+          SARAH'S CONTRIBUTION: Self-Serve Returns & RMA Generator UI Section
+          - Return initiation form with order validation
+          - Reason selection and refund method controls (Original vs Store Credit)
+          - RMA Generation card with printable shipping label & return guidance
         ========================================================================= -->
-        <section id="tab-returns" class="tab-panel">
-            <div class="card">
-                <h2>Self-Serve Return & Refund Request</h2>
-                <p class="desc">Generate an immediate Return Merchandise Authorization (RMA) number and free return shipping label for eligible orders.</p>
-                <form id="returnForm">
-                    <div class="form-group">
-                        <label for="returnOrderId">Order ID</label>
-                        <input type="text" id="returnOrderId" placeholder="e.g. ORD-3003" required autocomplete="off">
+        <section id="section-returns" class="hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-2">Instant Return & Refund Processing</h2>
+                <p class="text-sm text-slate-600 mb-4">Eligible orders within 30 days of delivery can generate an instant RMA label without agent intervention.</p>
+                
+                <form id="return-form" onsubmit="handleReturnSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Order ID</label>
+                            <input type="text" id="return-order-id" placeholder="e.g., ORD-3003" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-northstar-600 focus:border-transparent outline-none text-sm uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Primary Reason for Return</label>
+                            <select id="return-reason" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-northstar-600 focus:border-transparent outline-none text-sm bg-white">
+                                <option value="" disabled selected>Select a reason...</option>
+                                <option value="Wrong size / fit">Wrong size / fit</option>
+                                <option value="Item defective or damaged">Item defective or damaged</option>
+                                <option value="Item not as pictured">Item not as pictured</option>
+                                <option value="Changed mind / Not needed">Changed mind / Not needed</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="returnReason">Reason for Return</label>
-                        <select id="returnReason" required>
-                            <option value="">-- Choose reason --</option>
-                            <option value="Wrong size / Fit issue">Wrong size / Fit issue</option>
-                            <option value="Item damaged or defective">Item damaged or defective</option>
-                            <option value="Item not as described online">Item not as described online</option>
-                            <option value="Changed mind / No longer needed">Changed mind / No longer needed</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Preferred Refund Method</label>
-                        <div class="radio-options">
-                            <label class="radio-label">
-                                <input type="radio" name="refundChoice" value="Original Payment Method" checked>
-                                Original Payment (3-5 business days)
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Preferred Refund Method</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
+                            <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 transition-colors">
+                                <input type="radio" name="refund_method" value="Original Payment Method" checked class="text-northstar-600 focus:ring-northstar-600">
+                                <span class="ml-2.5 text-sm text-slate-700">Original Payment (3–5 business days)</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="refundChoice" value="Instant Store Credit (+5% bonus)">
-                                Store Credit (+5% bonus credit)
+                            <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 transition-colors">
+                                <input type="radio" name="refund_method" value="Store Credit (+5% Bonus)" class="text-northstar-600 focus:ring-northstar-600">
+                                <span class="ml-2.5 text-sm text-slate-700">Store Credit (Instant + 5% bonus)</span>
                             </label>
                         </div>
                     </div>
-                    <button type="submit" class="btn-submit" style="margin-top: 10px;">Submit Return & Generate Label</button>
+
+                    <button type="submit" class="w-full sm:w-auto bg-northstar-600 hover:bg-northstar-700 text-white font-medium px-6 py-2.5 rounded-lg text-sm transition-colors shadow-sm">
+                        Generate RMA & Return Label
+                    </button>
                 </form>
             </div>
 
-            <!-- RMA Confirmation Output -->
-            <div id="rmaConfirmationCard" class="rma-confirmation" style="display: none;">
-                <h3 style="color: #166534; font-size: 1.1rem; margin-bottom: 0.5rem;">✅ Return Request Authorized</h3>
-                <p style="color: #166534; font-size: 0.875rem;">Your return authorization has been generated. Please print this packing slip or write the RMA code clearly on your return carton.</p>
-                
-                <div class="rma-box">
+            <!-- RMA Confirmation Card -->
+            <div id="rma-result-card" class="hidden bg-white rounded-xl shadow-sm border border-emerald-200 p-6 space-y-4">
+                <div class="flex items-start justify-between border-b border-emerald-100 pb-4">
                     <div>
-                        <span style="font-size: 0.75rem; color: #64748b; display: block;">RMA Code:</span>
-                        <strong id="rmaCodeText" style="font-size: 1.15rem; color: #166534; font-family: monospace;"></strong>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 mb-1">
+                            RMA Authorized
+                        </span>
+                        <h3 class="text-lg font-bold text-slate-900">Return Request Confirmed</h3>
                     </div>
-                    <button type="button" onclick="window.print()" class="btn-submit" style="padding: 6px 14px; font-size: 0.8rem; background: #166534;">Print Label</button>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block font-mono">Authorization Code:</span>
+                        <span id="res-rma-code" class="text-sm font-mono font-bold text-northstar-700 bg-sky-50 px-2.5 py-1 rounded border border-sky-200"></span>
+                    </div>
                 </div>
 
-                <div style="font-size: 0.85rem; color: #14532d; line-height: 1.6;">
-                    <p>• <strong>Refund Method:</strong> <span id="rmaRefundMethod"></span></p>
-                    <p>• <strong>Instructions:
+                <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-100 text-sm text-emerald-900 space-y-2">
+                    <p><strong>Next Step:</strong> Pack your items securely in the original packaging with the RMA code written on the box.</p>
+                    <ul class="list-disc list-inside text-xs space-y-1 text-emerald-800">
+                        <li>Prepaid shipping label dispatched to customer email address.</li>
+                        <li>Drop off package at any authorized carrier drop-off location within 14 days.</li>
+                        <li id="res-refund-target">Refund processing will trigger within 24 hours of package scanning.</li>
+                    </ul>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="window.print()" class="px-4 py-2 text-xs font-semibold rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50">
+                        Print Return Packing Slip
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+          MARK'S CONTRIBUTION: Self-Serve FAQ & Ticket Deflection Accordion
+          - Dynamic FAQ list targeting common repetitive questions
+          - Instant resolution expanders to deflect routine inquiries
+        ========================================================================= -->
+        <section id="section-faq" class="hidden space-y-4">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-2">Frequently Asked Support Questions</h2>
+                <p class="text-sm text-slate-600 mb-6">Find instant answers to common questions regarding shipping, returns, and inventory.</p>
+                
+                <div id="faq-accordion-container" class="space-y-3">
+                    <!-- Populated dynamically via Mark's JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+            <p>Northstar Retail Co. • Support Deflection Prototype (MVP)</p>
+            <p class="text-slate-500">Collaborative Sprint Build: Esther (Lead) • Jack (Orders) • Sarah (Returns) • Mark (Database & FAQs)</p>
+        </div>
+    </footer>
+
+    <!-- =========================================================================
+      JAVASCRIPT CORE LOGIC & MOCK DATABASE
+    ========================================================================= -->
+    <script>
+        /* =========================================================================
+           MARK'S CONTRIBUTION: Mock Database & Global Knowledge Base
+           - Centralized mock dataset for orders, statuses, items, and FAQs
+        ========================================================================= */
+        const mockDatabase = {
+            orders: {
+                "ORD-1001": {
+                    id: "ORD-1001",
+                    status: "SHIPPED",
+                    step: 2,
+                    eta: "August 18, 2026",
+                    carrier: "SpeedyExpress (TRK-982144)",
+                    address: "Kahawa West, Nairobi",
+                    items: [
+                        { name: "Pro Wireless ANC Headphones", qty: 1, price: "$89.99" },
+                        { name: "Braided USB-C Fast Cable", qty: 2, price: "$14.99" }
+                    ]
+                },
+                "ORD-2002": {
+                    id: "ORD-2002",
+                    status: "PROCESSING",
+                    step: 1,
+                    eta: "August 22, 2026",
+                    carrier: "Pending Assignment",
+                    address: "Westlands, Nairobi",
+                    items: [
+                        { name: "Trailblazer Running Shoes (Size 42)", qty: 1, price: "$120.00" }
+                    ]
+                },
+                "ORD-3003": {
+                    id: "ORD-3003",
+                    status: "DELIVERED",
+                    step: 3,
+                    eta: "Delivered on August 12, 2026",
+                    carrier: "SpeedyExpress (TRK-771201)",
+                    address: "Kilimani, Nairobi",
+                    items: [
+                        { name: "Canvas Ergonomic Laptop Backpack", qty: 1, price: "$65.00" }
+                    ]
+                }
+            },
+            faqs: [
+                {
+                    q: "How long does standard delivery take?",
+                    a: "Standard delivery typically takes 2 to 4 business days within metropolitan areas and 3 to 7 business days for regional deliveries."
+                },
+                {
+                    q: "What is Northstar's return policy window?",
+                    a: "We offer a 30-day no-hassle return policy for all unworn or unopened items from the delivery confirmation date."
+                },
+                {
+                    q: "When will I receive my refund after returning an item?",
+                    a: "Store Credit refunds are issued immediately upon carrier drop-off scan. Original payment method refunds take 3 to 5 business days to reflect on your bank or M-Pesa statement."
+                },
+                {
+                    q: "How do I check if an out-of-stock size will be restocked?",
+                    a: "Items marked 'Back Soon' are restocked every 2 weeks. You can also subscribe directly on the product detail page to receive an automated SMS or email alert."
+                }
+            ]
+        };
+
+        /* =========================================================================
+           ESTHER'S CONTRIBUTION: Navigation Controller & State Management
+           - switchTab: Toggles visible panels and updates active styling
+        ========================================================================= */
+        function switchTab(targetTab) {
+            const tabs = [
