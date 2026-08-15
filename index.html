@@ -1,143 +1,335 @@
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- JACK'S PART (Task 1: Setup & Tailwind) -->
+    <!-- =========================================================================
+      JACK'S CONTRIBUTION: Base Configuration, Head Metadata & Styling Setup
+      - Responsive viewport setup
+      - Tailwind CSS CDN integration & Inter font configuration
+      - Application title & brand styling
+    ========================================================================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northstar Support Deflection MVP</title>
+    <title>Northstar Retail | Self-Service Support & Deflection Portal</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .tab-active { border-bottom: 2px solid #2563eb; color: #2563eb; }
-        .tab-inactive { border-bottom: 2px solid transparent; color: #6b7280; }
-    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        northstar: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- ESTHER'S PART (Task 3: Header & Tabs) -->
-    <header class="bg-white shadow">
-        <div class="max-w-3xl mx-auto px-4 py-6">
-            <h1 class="text-2xl font-bold text-gray-900">Northstar Support Portal</h1>
-            <p class="text-sm text-gray-500 mt-1">Self-Serve Support Deflection MVP</p>
+    <!-- =========================================================================
+      MARKS'S CONTRIBUTION: Header, Navigation & Tab Architecture
+      - Global navigation bar with branding
+      - Deflection metric hero banner
+      - Tab switching controllers (Order Tracking vs. Returns & Refunds)
+    ========================================================================= -->
+    <header class="bg-northstar-900 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-northstar-600 p-2 rounded-lg text-white font-bold text-xl">★</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Northstar Retail Co.</h1>
+                    <p class="text-xs text-sky-200">Customer Self-Service & Support Portal (MVP)</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs bg-northstar-800 px-3 py-1.5 rounded-full border border-northstar-700">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-slate-200">Pod: <strong>The Fixers</strong> (Esther, Jack, Sarah, Mark)</span>
+            </div>
         </div>
     </header>
 
-    <div class="max-w-3xl mx-auto w-full px-4 mt-6 flex-grow">
-        <div class="bg-white shadow rounded-lg overflow-hidden">
-            <div class="flex border-b border-gray-200 cursor-pointer">
-                <div id="tab-order" onclick="switchTab('order')" class="flex-1 py-4 text-center font-medium tab-active transition-colors hover:bg-gray-50">Track Order</div>
-                <div id="tab-return" onclick="switchTab('return')" class="flex-1 py-4 text-center font-medium tab-inactive transition-colors hover:bg-gray-50">Process Return</div>
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6 flex-grow w-full">
+        
+        <!-- Quick Tab Navigation -->
+        <div class="flex border-b border-slate-200 mb-8">
+            <button id="tab-orders-btn" onclick="switchTab('orders')" class="py-3 px-6 text-sm font-semibold border-b-2 border-northstar-600 text-northstar-700 focus:outline-none transition-colors">
+                📦 Order Status Lookup
+            </button>
+            <button id="tab-returns-btn" onclick="switchTab('returns')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">
+                🔄 Returns & Refunds
+            </button>
+            <button id="tab-faq-btn" onclick="switchTab('faq')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">
+                ❓ Instant Policy Help (FAQs)
+            </button>
+        </div>
+
+        <!-- =========================================================================
+          JACK'S CONTRIBUTION: Order Status & Real-Time Tracking UI Section
+          - Interactive Order ID input with sample test buttons
+          - Visual timeline status cards (Processing, Shipped, Delivered)
+          - Item detail tables and estimated delivery dates
+        ========================================================================= -->
+        <section id="section-orders" class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-2">Check Order Status</h2>
+                <p class="text-sm text-slate-600 mb-4">Track your shipment in real time without waiting for an email support agent.</p>
+                
+                <form id="order-search-form" onsubmit="handleOrderLookup(event)" class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="order-id-input" placeholder="e.g., ORD-1001 or ORD-2002" required
+                            class="flex-grow px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-northstar-600 focus:border-transparent outline-none text-sm uppercase">
+                        <button type="submit" class="bg-northstar-600 hover:bg-northstar-700 text-white font-medium px-6 py-2.5 rounded-lg text-sm transition-colors shadow-sm">
+                            Track Order
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Quick Test Preset Pills -->
+                <div class="mt-3 flex items-center gap-2 flex-wrap text-xs text-slate-500">
+                    <span>Try demo IDs:</span>
+                    <button type="button" onclick="setAndCheckOrder('ORD-1001')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded border border-slate-300 font-mono text-slate-700">ORD-1001 (Shipped)</button>
+                    <button type="button" onclick="setAndCheckOrder('ORD-2002')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded border border-slate-300 font-mono text-slate-700">ORD-2002 (Processing)</button>
+                    <button type="button" onclick="setAndCheckOrder('ORD-3003')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded border border-slate-300 font-mono text-slate-700">ORD-3003 (Delivered)</button>
+                </div>
             </div>
 
-            <main>
-                
-                <!--  MARK'S FIRST CODE BLOCK (Task 4)  -->
-               
-                <div id="section-order" class="p-6 block">
-                    <h2 class="text-xl font-semibold mb-4">Where is my order?</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Order ID</label>
-                            <input type="text" id="order-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                        </div>
-                        <button onclick="checkOrder()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Check Status</button>
+            <!-- Order Results Output Card -->
+            <div id="order-result-card" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+                <div class="flex flex-wrap justify-between items-center pb-4 border-b border-slate-100 gap-2">
+                    <div>
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Order Summary</span>
+                        <h3 id="res-order-id" class="text-lg font-bold text-slate-900"></h3>
                     </div>
-                    <div id="order-result" class="mt-6 hidden p-4 rounded-md"></div>
+                    <div id="res-status-badge"></div>
                 </div>
 
-                <!-- SARAH'S PART (Task 5: Returns Form UI) -->
-                <div id="section-return" class="p-6 hidden">
-                    <h2 class="text-xl font-semibold mb-4">Return an Item</h2>
-                    <div class="space-y-4">
+                <!-- Progress Step Indicator -->
+                <div class="py-2">
+                    <div class="grid grid-cols-3 text-center text-xs font-semibold text-slate-500 mb-2">
+                        <div id="step-1-label" class="text-northstar-600">1. Order Placed</div>
+                        <div id="step-2-label" class="text-slate-400">2. In Transit</div>
+                        <div id="step-3-label" class="text-slate-400">3. Delivered</div>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div id="order-progress-bar" class="bg-northstar-600 h-full w-1/3 transition-all duration-500"></div>
+                    </div>
+                </div>
+
+                <!-- Order Metadata Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg text-sm">
+                    <div>
+                        <span class="text-slate-500 block text-xs">Estimated Delivery:</span>
+                        <strong id="res-eta" class="text-slate-800"></strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block text-xs">Carrier & Tracking:</span>
+                        <strong id="res-tracking" class="text-slate-800"></strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block text-xs">Shipping Address:</span>
+                        <span id="res-address" class="text-slate-800 font-medium"></span>
+                    </div>
+                </div>
+
+                <!-- Item Breakdown -->
+                <div>
+                    <h4 class="text-xs uppercase font-bold text-slate-500 mb-2">Ordered Items</h4>
+                    <div id="res-items-list" class="space-y-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+          SARAH'S CONTRIBUTION: Self-Serve Returns & RMA Generator UI Section
+          - Return initiation form with order validation
+          - Reason selection and refund method controls (Original vs Store Credit)
+          - RMA Generation card with printable shipping label & return guidance
+        ========================================================================= -->
+        <section id="section-returns" class="hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-2">Instant Return & Refund Processing</h2>
+                <p class="text-sm text-slate-600 mb-4">Eligible orders within 30 days of delivery can generate an instant RMA label without agent intervention.</p>
+                
+                <form id="return-form" onsubmit="handleReturnSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Order ID</label>
-                            <input type="text" id="return-id" placeholder="e.g. 12345" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Order ID</label>
+                            <input type="text" id="return-order-id" placeholder="e.g., ORD-3003" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-northstar-600 focus:border-transparent outline-none text-sm uppercase">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Reason</label>
-                            <select id="return-reason" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                                <option>Wrong size</option>
-                                <option>Item damaged</option>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Primary Reason for Return</label>
+                            <select id="return-reason" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-northstar-600 focus:border-transparent outline-none text-sm bg-white">
+                                <option value="" disabled selected>Select a reason...</option>
+                                <option value="Wrong size / fit">Wrong size / fit</option>
+                                <option value="Item defective or damaged">Item defective or damaged</option>
+                                <option value="Item not as pictured">Item not as pictured</option>
+                                <option value="Changed mind / Not needed">Changed mind / Not needed</option>
                             </select>
                         </div>
-                        <button onclick="processReturn()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md">Generate Return Label</button>
                     </div>
-                    <div id="return-result" class="mt-6 hidden p-4 rounded-md"></div>
-                </div>
-            </main>
-        </div>
-    </div>
 
-    <!-- ESTHER'S PART (Task 3: Footer) -->
-    <footer class="bg-gray-800 mt-12 py-6">
-        <div class="max-w-3xl mx-auto px-4 text-center text-gray-400 text-sm">
-            &copy; 2026 Northstar Retail Co. Support Deflection MVP
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Preferred Refund Method</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
+                            <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 transition-colors">
+                                <input type="radio" name="refund_method" value="Original Payment Method" checked class="text-northstar-600 focus:ring-northstar-600">
+                                <span class="ml-2.5 text-sm text-slate-700">Original Payment (3–5 business days)</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 transition-colors">
+                                <input type="radio" name="refund_method" value="Store Credit (+5% Bonus)" class="text-northstar-600 focus:ring-northstar-600">
+                                <span class="ml-2.5 text-sm text-slate-700">Store Credit (Instant + 5% bonus)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full sm:w-auto bg-northstar-600 hover:bg-northstar-700 text-white font-medium px-6 py-2.5 rounded-lg text-sm transition-colors shadow-sm">
+                        Generate RMA & Return Label
+                    </button>
+                </form>
+            </div>
+
+            <!-- RMA Confirmation Card -->
+            <div id="rma-result-card" class="hidden bg-white rounded-xl shadow-sm border border-emerald-200 p-6 space-y-4">
+                <div class="flex items-start justify-between border-b border-emerald-100 pb-4">
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 mb-1">
+                            RMA Authorized
+                        </span>
+                        <h3 class="text-lg font-bold text-slate-900">Return Request Confirmed</h3>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block font-mono">Authorization Code:</span>
+                        <span id="res-rma-code" class="text-sm font-mono font-bold text-northstar-700 bg-sky-50 px-2.5 py-1 rounded border border-sky-200"></span>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-100 text-sm text-emerald-900 space-y-2">
+                    <p><strong>Next Step:</strong> Pack your items securely in the original packaging with the RMA code written on the box.</p>
+                    <ul class="list-disc list-inside text-xs space-y-1 text-emerald-800">
+                        <li>Prepaid shipping label dispatched to customer email address.</li>
+                        <li>Drop off package at any authorized carrier drop-off location within 14 days.</li>
+                        <li id="res-refund-target">Refund processing will trigger within 24 hours of package scanning.</li>
+                    </ul>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="window.print()" class="px-4 py-2 text-xs font-semibold rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50">
+                        Print Return Packing Slip
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+          MARK'S CONTRIBUTION: Self-Serve FAQ & Ticket Deflection Accordion
+          - Dynamic FAQ list targeting common repetitive questions
+          - Instant resolution expanders to deflect routine inquiries
+        ========================================================================= -->
+        <section id="section-faq" class="hidden space-y-4">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-2">Frequently Asked Support Questions</h2>
+                <p class="text-sm text-slate-600 mb-6">Find instant answers to common questions regarding shipping, returns, and inventory.</p>
+                
+                <div id="faq-accordion-container" class="space-y-3">
+                    <!-- Populated dynamically via Mark's JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+            <p>Northstar Retail Co. • Support Deflection Prototype (MVP)</p>
+            <p class="text-slate-500">Collaborative Sprint Build: Esther (Lead) • Jack (Orders) • Sarah (Returns) • Mark (Database & FAQs)</p>
         </div>
     </footer>
 
+    <!-- =========================================================================
+      JAVASCRIPT CORE LOGIC & MOCK DATABASE
+    ========================================================================= -->
     <script>
-        
-        // MARK'S SECOND CODE BLOCK (Tasks 6 & 7) 
-        function getMockOrderStatus(id) {
-            if (id.startsWith('1') || id.startsWith('2')) {
-                return { status: `Order <strong>#${id}</strong> has shipped.`, color: 'bg-green-100 text-green-800' };
-            }
-            return { status: `Order <strong>#${id}</strong> is processing.`, color: 'bg-blue-100 text-blue-800' };
-        }
-
-        function getMockRMA() {
-            return 'RMA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-        }
-        
-
-        // ESTHER'S PART (Tasks 8, 9, 10: UI Logic)
-        function switchTab(selectedTab) {
-            const tabs = ['order', 'return'];
-            tabs.forEach(tab => {
-                const tabBtn = document.getElementById(`tab-${tab}`);
-                const section = document.getElementById(`section-${tab}`);
-                const resultDiv = document.getElementById(`${tab}-result`);
-                
-                if (tab === selectedTab) {
-                    tabBtn.className = 'flex-1 py-4 text-center font-medium tab-active transition-colors hover:bg-gray-50';
-                    section.classList.remove('hidden'); section.classList.add('block');
-                } else {
-                    tabBtn.className = 'flex-1 py-4 text-center font-medium tab-inactive transition-colors hover:bg-gray-50';
-                    section.classList.remove('block'); section.classList.add('hidden');
+        /* =========================================================================
+           MARK'S CONTRIBUTION: Mock Database & Global Knowledge Base
+           - Centralized mock dataset for orders, statuses, items, and FAQs
+        ========================================================================= */
+        const mockDatabase = {
+            orders: {
+                "ORD-1001": {
+                    id: "ORD-1001",
+                    status: "SHIPPED",
+                    step: 2,
+                    eta: "August 18, 2026",
+                    carrier: "SpeedyExpress (TRK-982144)",
+                    address: "Kahawa West, Nairobi",
+                    items: [
+                        { name: "Pro Wireless ANC Headphones", qty: 1, price: "$89.99" },
+                        { name: "Braided USB-C Fast Cable", qty: 2, price: "$14.99" }
+                    ]
+                },
+                "ORD-2002": {
+                    id: "ORD-2002",
+                    status: "PROCESSING",
+                    step: 1,
+                    eta: "August 22, 2026",
+                    carrier: "Pending Assignment",
+                    address: "Westlands, Nairobi",
+                    items: [
+                        { name: "Trailblazer Running Shoes (Size 42)", qty: 1, price: "$120.00" }
+                    ]
+                },
+                "ORD-3003": {
+                    id: "ORD-3003",
+                    status: "DELIVERED",
+                    step: 3,
+                    eta: "Delivered on August 12, 2026",
+                    carrier: "SpeedyExpress (TRK-771201)",
+                    address: "Kilimani, Nairobi",
+                    items: [
+                        { name: "Canvas Ergonomic Laptop Backpack", qty: 1, price: "$65.00" }
+                    ]
                 }
-                if(resultDiv) resultDiv.classList.add('hidden');
-            });
-        }
+            },
+            faqs: [
+                {
+                    q: "How long does standard delivery take?",
+                    a: "Standard delivery typically takes 2 to 4 business days within metropolitan areas and 3 to 7 business days for regional deliveries."
+                },
+                {
+                    q: "What is Northstar's return policy window?",
+                    a: "We offer a 30-day no-hassle return policy for all unworn or unopened items from the delivery confirmation date."
+                },
+                {
+                    q: "When will I receive my refund after returning an item?",
+                    a: "Store Credit refunds are issued immediately upon carrier drop-off scan. Original payment method refunds take 3 to 5 business days to reflect on your bank or M-Pesa statement."
+                },
+                {
+                    q: "How do I check if an out-of-stock size will be restocked?",
+                    a: "Items marked 'Back Soon' are restocked every 2 weeks. You can also subscribe directly on the product detail page to receive an automated SMS or email alert."
+                }
+            ]
+        };
 
-        function showResult(el, msg, colors) {
-            el.innerHTML = msg;
-            el.className = `mt-6 p-4 rounded-md ${colors}`;
-            el.classList.remove('hidden');
-        }
-
-        function checkOrder() {
-            const id = document.getElementById('order-id').value.trim();
-            const res = document.getElementById('order-result');
-            if(!id) return showResult(res, 'Please enter an Order ID.', 'bg-red-100 text-red-700');
-
-            setTimeout(() => {
-                const data = getMockOrderStatus(id);
-                showResult(res, data.status, data.color);
-            }, 400); 
-        }
-
-        function processReturn() {
-            const id = document.getElementById('return-id').value.trim();
-            const res = document.getElementById('return-result');
-            if(!id) return showResult(res, 'Please enter an Order ID.', 'bg-red-100 text-red-700');
-
-            setTimeout(() => {
-                const rma = getMockRMA();
-                showResult(res, `Return approved. Your code is: <strong>${rma}</strong>`, 'bg-green-100 text-green-800');
-            }, 400);
-        }
-    </script>
-</body>
-                       </html>
+        /* =========================================================================
+           ESTHER'S CONTRIBUTION: Navigation Controller & State Management
+           - switchTab: Toggles visible panels and updates active styling
+        ========================================================================= */
+        function switchTab(targetTab) {
+            const tabs = [
                        
