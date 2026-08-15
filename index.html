@@ -1,13 +1,10 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- =========================================================================
-      ESTHER'S CONTRIBUTION: Base Configuration, Head Metadata & Styling Setup
-      - Responsive viewport setup
-      - Tailwind CSS CDN integration & Inter font configuration
-      - Application title & brand styling
+      JACK'S PART (Task 1: Setup & Tailwind)
+      - Responsive viewport setup and Inter font configuration
+      - Tailwind CSS CDN integration & theme colors
     ========================================================================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,9 +33,8 @@
 <body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
     <!-- =========================================================================
-      ESTHER'S CONTRIBUTION: Header, Navigation & Tab Architecture
+      ESTHER'S PART (Task 3: Header & Tabs)
       - Global navigation bar with branding
-      - Deflection metric hero banner
       - Tab switching controllers (Order Tracking vs. Returns & Refunds)
     ========================================================================= -->
     <header class="bg-northstar-900 text-white shadow-md">
@@ -74,10 +70,7 @@
         </div>
 
         <!-- =========================================================================
-          JACK'S CONTRIBUTION: Order Status & Real-Time Tracking UI Section
-          - Interactive Order ID input with sample test buttons
-          - Visual timeline status cards (Processing, Shipped, Delivered)
-          - Item detail tables and estimated delivery dates
+          ⬇️ MARK'S FIRST CODE BLOCK (Task 4: Orders UI) ⬇️
         ========================================================================= -->
         <section id="section-orders" class="space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -148,12 +141,11 @@
                 </div>
             </div>
         </section>
+        <!-- ⬆️ END OF MARK'S FIRST CODE BLOCK ⬆️ -->
+
 
         <!-- =========================================================================
-          SARAH'S CONTRIBUTION: Self-Serve Returns & RMA Generator UI Section
-          - Return initiation form with order validation
-          - Reason selection and refund method controls (Original vs Store Credit)
-          - RMA Generation card with printable shipping label & return guidance
+          SARAH'S PART (Task 5: Returns Form UI)
         ========================================================================= -->
         <section id="section-returns" class="hidden space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -233,9 +225,7 @@
         </section>
 
         <!-- =========================================================================
-          MARK'S CONTRIBUTION: Self-Serve FAQ & Ticket Deflection Accordion
-          - Dynamic FAQ list targeting common repetitive questions
-          - Instant resolution expanders to deflect routine inquiries
+          MARK'S EXTENSION (Task 4b: FAQ UI)
         ========================================================================= -->
         <section id="section-faq" class="hidden space-y-4">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -250,7 +240,9 @@
 
     </main>
 
-    <!-- Global Footer -->
+    <!-- =========================================================================
+      ESTHER'S PART (Task 3: Footer)
+    ========================================================================= -->
     <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800">
         <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
             <p>Northstar Retail Co. • Support Deflection Prototype (MVP)</p>
@@ -258,74 +250,65 @@
         </div>
     </footer>
 
-    <!-- =========================================================================
-      JAVASCRIPT CORE LOGIC & MOCK DATABASE
-    ========================================================================= -->
     <script>
-        /* =========================================================================
-           MARK'S CONTRIBUTION: Mock Database & Global Knowledge Base
-           - Centralized mock dataset for orders, statuses, items, and FAQs
-        ========================================================================= */
+        // ========================================== 
+        // ⬇️ MARK'S SECOND CODE BLOCK (Tasks 6 & 7: Mock DB Data) ⬇️
+        // ========================================== 
         const mockDatabase = {
             orders: {
-                "ORD-1001": {
-                    id: "ORD-1001",
-                    status: "SHIPPED",
-                    step: 2,
-                    eta: "August 18, 2026",
-                    carrier: "SpeedyExpress (TRK-982144)",
-                    address: "Kahawa West, Nairobi",
-                    items: [
-                        { name: "Pro Wireless ANC Headphones", qty: 1, price: "$89.99" },
-                        { name: "Braided USB-C Fast Cable", qty: 2, price: "$14.99" }
-                    ]
-                },
-                "ORD-2002": {
-                    id: "ORD-2002",
-                    status: "PROCESSING",
-                    step: 1,
-                    eta: "August 22, 2026",
-                    carrier: "Pending Assignment",
-                    address: "Westlands, Nairobi",
-                    items: [
-                        { name: "Trailblazer Running Shoes (Size 42)", qty: 1, price: "$120.00" }
-                    ]
-                },
-                "ORD-3003": {
-                    id: "ORD-3003",
-                    status: "DELIVERED",
-                    step: 3,
-                    eta: "Delivered on August 12, 2026",
-                    carrier: "SpeedyExpress (TRK-771201)",
-                    address: "Kilimani, Nairobi",
-                    items: [
-                        { name: "Canvas Ergonomic Laptop Backpack", qty: 1, price: "$65.00" }
-                    ]
-                }
+                "ORD-1001": { id: "ORD-1001", status: "SHIPPED", step: 2, eta: "August 18, 2026", carrier: "SpeedyExpress (TRK-982144)", address: "Kahawa West, Nairobi", items: [{ name: "Pro Wireless ANC Headphones", qty: 1, price: "$89.99" }, { name: "Braided USB-C Fast Cable", qty: 2, price: "$14.99" }] },
+                "ORD-2002": { id: "ORD-2002", status: "PROCESSING", step: 1, eta: "August 22, 2026", carrier: "Pending Assignment", address: "Westlands, Nairobi", items: [{ name: "Trailblazer Running Shoes (Size 42)", qty: 1, price: "$120.00" }] },
+                "ORD-3003": { id: "ORD-3003", status: "DELIVERED", step: 3, eta: "Delivered on August 12, 2026", carrier: "SpeedyExpress (TRK-771201)", address: "Kilimani, Nairobi", items: [{ name: "Canvas Ergonomic Laptop Backpack", qty: 1, price: "$65.00" }] }
             },
             faqs: [
-                {
-                    q: "How long does standard delivery take?",
-                    a: "Standard delivery typically takes 2 to 4 business days within metropolitan areas and 3 to 7 business days for regional deliveries."
-                },
-                {
-                    q: "What is Northstar's return policy window?",
-                    a: "We offer a 30-day no-hassle return policy for all unworn or unopened items from the delivery confirmation date."
-                },
-                {
-                    q: "When will I receive my refund after returning an item?",
-                    a: "Store Credit refunds are issued immediately upon carrier drop-off scan. Original payment method refunds take 3 to 5 business days to reflect on your bank or M-Pesa statement."
-                },
-                {
-                    q: "How do I check if an out-of-stock size will be restocked?",
-                    a: "Items marked 'Back Soon' are restocked every 2 weeks. You can also subscribe directly on the product detail page to receive an automated SMS or email alert."
-                }
+                { q: "How long does standard delivery take?", a: "Standard delivery typically takes 2 to 4 business days within metropolitan areas and 3 to 7 business days for regional deliveries." },
+                { q: "What is Northstar's return policy window?", a: "We offer a 30-day no-hassle return policy for all unworn or unopened items from the delivery confirmation date." },
+                { q: "When will I receive my refund after returning an item?", a: "Store Credit refunds are issued immediately upon carrier drop-off scan. Original payment method refunds take 3 to 5 business days to reflect on your bank or M-Pesa statement." },
+                { q: "How do I check if an out-of-stock size will be restocked?", a: "Items marked 'Back Soon' are restocked every 2 weeks. You can also subscribe directly on the product detail page to receive an automated SMS or email alert." }
             ]
         };
 
-        /* =========================================================================
-           ESTHER'S CONTRIBUTION: Navigation Controller & State Management
-           - switchTab: Toggles visible panels and updates active styling
-        ========================================================================= */
+        // ========================================== 
+        // ESTHER'S PART (Tasks 8, 9, 10: UI Logic & Handlers)
+        // ========================================== 
         function switchTab(targetTab) {
-            const tabs = [
+            const tabs = ['orders', 'returns', 'faq'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-${tab}-btn`);
+                const section = document.getElementById(`section-${tab}`);
+                if (!btn || !section) return; // Safety check
+                
+                if (tab === targetTab) {
+                    btn.classList.remove('border-transparent', 'text-slate-500');
+                    btn.classList.add('border-northstar-600', 'text-northstar-700');
+                    section.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('border-northstar-600', 'text-northstar-700');
+                    btn.classList.add('border-transparent', 'text-slate-500');
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        function setAndCheckOrder(id) {
+            document.getElementById('order-id-input').value = id;
+            handleOrderLookup(); // Bypasses mobile event issues
+        }
+
+        function handleOrderLookup(event) {
+            if (event) event.preventDefault();
+            
+            const idInput = document.getElementById('order-id-input').value.trim().toUpperCase();
+            const resultCard = document.getElementById('order-result-card');
+            const data = mockDatabase.orders[idInput];
+
+            if (!data) {
+                alert(`Order ${idInput} not found in our database. Please check the ID and try again.`);
+                resultCard.classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('res-order-id').innerText = data.id;
+            document.getElementById('res-eta').innerText = data.eta;
+            document.getElementById('res-tracking').innerText = data.carrier;
+            document.getElementById('res-address').innerText = dat
