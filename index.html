@@ -57,18 +57,33 @@
     <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6 flex-grow w-full">
         
         <!-- Quick Tab Navigation -->
-        <div class="flex border-b border-slate-200 mb-8">
-            <button id="tab-orders-btn" onclick="switchTab('orders')" class="py-3 px-6 text-sm font-semibold border-b-2 border-northstar-600 text-northstar-700 focus:outline-none transition-colors">
-                📦 Order Status Lookup
-            </button>
-            <button id="tab-returns-btn" onclick="switchTab('returns')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">
-                🔄 Returns & Refunds
-            </button>
-            <button id="tab-faq-btn" onclick="switchTab('faq')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">
-                ❓ Instant Policy Help (FAQs)
-            </button>
-        </div>
 
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4 border-b border-gray-200 pb-4 px-2">
+    <!-- Tab 1: Order Status Lookup -->
+    <button onclick="switchTab('orders')" id="tab-orders" class="flex items-center space-x-2 px-4 py-2.5 text-sm font-semibold text-blue-600 bg-blue-50 rounded-xl border border-blue-100 transition-all focus:outline-none">
+        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+        </svg>
+        <span>Order Status</span>
+    </button>
+
+    <!-- Tab 2: Returns & Refunds -->
+    <button onclick="switchTab('returns')" id="tab-returns" class="flex items-center space-x-2 px-4 py-2.5 text-sm font-semibold text-gray-600 bg-gray-50 rounded-xl border border-gray-100 hover:bg-gray-100 transition-all focus:outline-none">
+        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        <span>Returns & Refunds</span>
+    </button>
+
+    <!-- Tab 3: Instant Policy Help (FAQs) -->
+    <button onclick="switchTab('faqs')" id="tab-faqs" class="flex items-center space-x-2 px-4 py-2.5 text-sm font-semibold text-gray-600 bg-gray-50 rounded-xl border border-gray-100 hover:bg-gray-100 transition-all focus:outline-none">
+        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>Policy FAQs</span>
+    </button>
+        </div>
+        
         <!-- =========================================================================
           ⬇️ MARK'S FIRST CODE BLOCK (Task 4: Orders UI) ⬇️
         ========================================================================= -->
