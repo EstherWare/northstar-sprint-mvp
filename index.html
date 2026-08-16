@@ -57,31 +57,33 @@
     <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6 flex-grow w-full">
         
         <!-- Quick Tab Navigation -->
-<div class="flex justify-center items-center gap-1.5 sm:gap-3 px-2 py-3 border-b border-gray-200">
-    <!-- Tab 1: Order Status -->
-    <button onclick="switchTab('orders')" id="tab-orders" class="flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all focus:outline-none bg-blue-600 text-white shadow-sm">
-        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<div class="flex justify-center items-center gap-2 py-3 px-2 border-b border-gray-200">
+    
+    <!-- Tab 1: Orders -->
+    <button onclick="switchTab('orders')" id="tab-orders" class="flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl border border-northstar-600 text-northstar-700 transition-all focus:outline-none">
+        <svg class="w-4 h-4 text-northstar-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
         </svg>
         <span>Orders</span>
     </button>
 
-    <!-- Tab 2: Returns & Refunds -->
-    <button onclick="switchTab('returns')" id="tab-returns" class="flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all focus:outline-none bg-gray-100 text-gray-700 hover:bg-gray-200">
-        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Tab 2: Returns -->
+    <button onclick="switchTab('returns')" id="tab-returns" class="flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl border border-transparent text-slate-500 hover:text-slate-700 transition-all focus:outline-none">
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
         </svg>
         <span>Returns</span>
     </button>
 
-    <!-- Tab 3: Policy FAQs -->
-    <button onclick="switchTab('faqs')" id="tab-faqs" class="flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all focus:outline-none bg-gray-100 text-gray-700 hover:bg-gray-200">
-        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Tab 3: FAQs -->
+    <button onclick="switchTab('faqs')" id="tab-faqs" class="flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl border border-transparent text-slate-500 hover:text-slate-700 transition-all focus:outline-none">
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
         <span>FAQs</span>
     </button>
 </div>
+        
         
         <!-- =========================================================================
           ⬇️ MARK'S FIRST CODE BLOCK (Task 4: Orders UI) ⬇️
@@ -241,12 +243,12 @@
         <!-- =========================================================================
           MARK'S EXTENSION (Task 4b: FAQ UI)
         ========================================================================= -->
-        <section id="section-faq" class="hidden space-y-4">
+        <section id="section-faqs" class="hidden space-y-4">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
                 <h2 class="text-lg font-bold text-slate-900 mb-2">Frequently Asked Support Questions</h2>
                 <p class="text-sm text-slate-600 mb-6">Find instant answers to common questions regarding shipping, returns, and inventory.</p>
                 
-                <div id="faq-accordion-container" class="space-y-3">
+                <div id="faqs-accordion-container" class="space-y-3">
                     <!-- Populated dynamically via Mark's JavaScript -->
                 </div>
             </div>
@@ -286,7 +288,7 @@
         // ESTHER'S PART (Tasks 8, 9, 10: UI Logic & Handlers)
         // ========================================== 
         function switchTab(targetTab) {
-            const tabs = ['orders', 'returns', 'faq'];
+            const tabs = ['orders', 'returns', 'faqs'];
             tabs.forEach(tab => {
                 const btn = document.getElementById(`tab-${tab}-btn`);
                 const section = document.getElementById(`section-${tab}`);
