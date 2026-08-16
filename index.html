@@ -252,25 +252,27 @@
             ]
         };
 
-        function switchTab(targetTab) {
-            const tabs = ['orders', 'returns', 'faqs'];
-            tabs.forEach(tab => {
-                const btn = document.getElementById(`tab-${tab}`);
-                const section = document.getElementById(`section-${tab}`);
-                if (!btn || !section) return;
+function switchTab(targetTab) {
+    const tabs = ['orders', 'returns', 'faqs'];
+    
+    tabs.forEach(tab => {
+        const btn = document.getElementById(`tab-${tab}`);
+        const section = document.getElementById(`section-${tab}`);
+        
+        if (!btn || !section) return; // Safety check
 
-                if (tab === targetTab) {
-                    btn.classList.remove('border-transparent', 'text-slate-500');
-                    btn.classList.add('border-northstar-600', 'text-northstar-700');
-                    section.classList.remove('hidden');
-                } else {
-                    btn.classList.remove('border-northstar-600', 'text-northstar-700');
-                    btn.classList.add('border-transparent', 'text-slate-500');
-                    section.classList.add('hidden');
-                }
-            });
+        if (tab === targetTab) {
+            // Show Active Tab
+            section.classList.remove('hidden');
+            btn.className = "flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl border border-northstar-600 text-northstar-700 transition-all focus:outline-none bg-sky-50";
+        } else {
+            // Hide Inactive Tabs
+            section.classList.add('hidden');
+            btn.className = "flex items-center space-x-1.5 px-3 py-2 text-xs sm:text-sm font-semibold rounded-xl border border-transparent text-slate-500 hover:text-slate-700 transition-all focus:outline-none bg-transparent";
         }
-
+    });
+}
+        
         function setAndCheckOrder(id) {
             document.getElementById('order-id-input').value = id;
             handleOrderLookup();
